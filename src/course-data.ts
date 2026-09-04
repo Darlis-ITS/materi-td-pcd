@@ -630,9 +630,7 @@ export const courseData = {
       "subtitle": "Fokus Pembelajaran: menganalisis perbedaan inductive bias CNN dan Vision Transformer serta implikasinya terhadap data, komputasi, dan generalisasi. Fokus Penelitian: memilih…",
       "slidePath": "slide/pert03.md",
       "narrationPath": "slide/narasi/pert03.md",
-      "practicumPaths": [
-        "praktikum/modul-praktikum-pertemuan-03-cnn-attention-vit.md"
-      ],
+      "practicumPaths": [],
       "images": [
         {
           "slideNumber": 0,
