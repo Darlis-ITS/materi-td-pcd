@@ -7,7 +7,7 @@ export const courseData = {
   "description": "Mata kuliah Topik Dalam Pengolahan Citra Digital pada jenjang Doktor (S3) membahas perkembangan mutakhir dalam Digital Image Processing dan Computer Vision, dengan penekanan pada metode yang sedang berkembang seperti…",
   "heroTitle": "TD Pengolahan Citra Digital",
   "sourceOfferingId": 12,
-  "generatedAt": "2026-08-30T21:52:13.259Z",
+  "generatedAt": "2026-09-04T10:09:11.117Z",
   "rps": {
     "title": "RPS TD Pengolahan Citra Digital",
     "path": "rps/rps.md"
@@ -20,7 +20,9 @@ export const courseData = {
       "subtitle": "Fokus Pembelajaran: memahami perubahan paradigma dari pengolahan citra klasik menuju deep learning, foundation models, generative vision, dan trustworthy computer vision. Fokus…",
       "slidePath": "slide/pert01.md",
       "narrationPath": "slide/narasi/pert01.md",
-      "practicumPaths": [],
+      "practicumPaths": [
+        "praktikum/modul-praktikum-01-td-pengolahan-citra-digital.md"
+      ],
       "images": [
         {
           "slideNumber": 0,
@@ -378,13 +380,259 @@ export const courseData = {
       "narrationCount": 41
     },
     {
+      "id": "pert02",
+      "number": 2,
+      "title": "Fondasi Representasi Visual: CNN, Transformer, dan Dataset Benchmark",
+      "subtitle": "Critical Paper Reading dan Identifikasi Research Gap",
+      "slidePath": "slide/pert02.md",
+      "narrationPath": "slide/narasi/pert02.md",
+      "practicumPaths": [
+        "praktikum/pert02-praktikum-cnn-transformer.md"
+      ],
+      "images": [
+        {
+          "slideNumber": 0,
+          "path": "slide/slide-image/pert02/slide-000-v001.webp"
+        },
+        {
+          "slideNumber": 1,
+          "path": "slide/slide-image/pert02/slide-001-v001.webp"
+        },
+        {
+          "slideNumber": 2,
+          "path": "slide/slide-image/pert02/slide-002-v001.webp"
+        },
+        {
+          "slideNumber": 3,
+          "path": "slide/slide-image/pert02/slide-003-v001.webp"
+        },
+        {
+          "slideNumber": 4,
+          "path": "slide/slide-image/pert02/slide-004-v001.webp"
+        },
+        {
+          "slideNumber": 5,
+          "path": "slide/slide-image/pert02/slide-005-v001.webp"
+        },
+        {
+          "slideNumber": 6,
+          "path": "slide/slide-image/pert02/slide-006-v001.webp"
+        },
+        {
+          "slideNumber": 7,
+          "path": "slide/slide-image/pert02/slide-007-v001.webp"
+        },
+        {
+          "slideNumber": 8,
+          "path": "slide/slide-image/pert02/slide-008-v001.webp"
+        },
+        {
+          "slideNumber": 9,
+          "path": "slide/slide-image/pert02/slide-009-v001.webp"
+        },
+        {
+          "slideNumber": 10,
+          "path": "slide/slide-image/pert02/slide-010-v001.webp"
+        },
+        {
+          "slideNumber": 11,
+          "path": "slide/slide-image/pert02/slide-011-v001.webp"
+        },
+        {
+          "slideNumber": 12,
+          "path": "slide/slide-image/pert02/slide-012-v001.webp"
+        },
+        {
+          "slideNumber": 13,
+          "path": "slide/slide-image/pert02/slide-013-v001.webp"
+        },
+        {
+          "slideNumber": 14,
+          "path": "slide/slide-image/pert02/slide-014-v001.webp"
+        },
+        {
+          "slideNumber": 15,
+          "path": "slide/slide-image/pert02/slide-015-v001.webp"
+        },
+        {
+          "slideNumber": 16,
+          "path": "slide/slide-image/pert02/slide-016-v001.webp"
+        },
+        {
+          "slideNumber": 17,
+          "path": "slide/slide-image/pert02/slide-017-v001.webp"
+        },
+        {
+          "slideNumber": 18,
+          "path": "slide/slide-image/pert02/slide-018-v001.webp"
+        },
+        {
+          "slideNumber": 19,
+          "path": "slide/slide-image/pert02/slide-019-v001.webp"
+        },
+        {
+          "slideNumber": 20,
+          "path": "slide/slide-image/pert02/slide-020-v001.webp"
+        },
+        {
+          "slideNumber": 21,
+          "path": "slide/slide-image/pert02/slide-021-v001.webp"
+        },
+        {
+          "slideNumber": 22,
+          "path": "slide/slide-image/pert02/slide-022-v001.webp"
+        },
+        {
+          "slideNumber": 23,
+          "path": "slide/slide-image/pert02/slide-023-v001.webp"
+        },
+        {
+          "slideNumber": 24,
+          "path": "slide/slide-image/pert02/slide-024-v001.webp"
+        },
+        {
+          "slideNumber": 25,
+          "path": "slide/slide-image/pert02/slide-025-v001.webp"
+        },
+        {
+          "slideNumber": 26,
+          "path": "slide/slide-image/pert02/slide-026-v001.webp"
+        },
+        {
+          "slideNumber": 27,
+          "path": "slide/slide-image/pert02/slide-027-v001.webp"
+        },
+        {
+          "slideNumber": 28,
+          "path": "slide/slide-image/pert02/slide-028-v001.webp"
+        },
+        {
+          "slideNumber": 29,
+          "path": "slide/slide-image/pert02/slide-029-v001.webp"
+        },
+        {
+          "slideNumber": 30,
+          "path": "slide/slide-image/pert02/slide-030-v001.webp"
+        },
+        {
+          "slideNumber": 31,
+          "path": "slide/slide-image/pert02/slide-031-v001.webp"
+        },
+        {
+          "slideNumber": 32,
+          "path": "slide/slide-image/pert02/slide-032-v001.webp"
+        },
+        {
+          "slideNumber": 33,
+          "path": "slide/slide-image/pert02/slide-033-v001.webp"
+        },
+        {
+          "slideNumber": 34,
+          "path": "slide/slide-image/pert02/slide-034-v001.webp"
+        },
+        {
+          "slideNumber": 35,
+          "path": "slide/slide-image/pert02/slide-035-v001.webp"
+        },
+        {
+          "slideNumber": 36,
+          "path": "slide/slide-image/pert02/slide-036-v001.webp"
+        },
+        {
+          "slideNumber": 37,
+          "path": "slide/slide-image/pert02/slide-037-v001.webp"
+        },
+        {
+          "slideNumber": 38,
+          "path": "slide/slide-image/pert02/slide-038-v001.webp"
+        },
+        {
+          "slideNumber": 39,
+          "path": "slide/slide-image/pert02/slide-039-v001.webp"
+        },
+        {
+          "slideNumber": 40,
+          "path": "slide/slide-image/pert02/slide-040-v001.webp"
+        },
+        {
+          "slideNumber": 41,
+          "path": "slide/slide-image/pert02/slide-041-v001.webp"
+        },
+        {
+          "slideNumber": 42,
+          "path": "slide/slide-image/pert02/slide-042-v001.webp"
+        },
+        {
+          "slideNumber": 43,
+          "path": "slide/slide-image/pert02/slide-043-v001.webp"
+        },
+        {
+          "slideNumber": 44,
+          "path": "slide/slide-image/pert02/slide-044-v001.webp"
+        },
+        {
+          "slideNumber": 45,
+          "path": "slide/slide-image/pert02/slide-045-v001.webp"
+        },
+        {
+          "slideNumber": 46,
+          "path": "slide/slide-image/pert02/slide-046-v001.webp"
+        },
+        {
+          "slideNumber": 47,
+          "path": "slide/slide-image/pert02/slide-047-v001.webp"
+        },
+        {
+          "slideNumber": 48,
+          "path": "slide/slide-image/pert02/slide-048-v001.webp"
+        },
+        {
+          "slideNumber": 49,
+          "path": "slide/slide-image/pert02/slide-049-v001.webp"
+        },
+        {
+          "slideNumber": 50,
+          "path": "slide/slide-image/pert02/slide-050-v001.webp"
+        },
+        {
+          "slideNumber": 51,
+          "path": "slide/slide-image/pert02/slide-051-v001.webp"
+        },
+        {
+          "slideNumber": 52,
+          "path": "slide/slide-image/pert02/slide-052-v001.webp"
+        },
+        {
+          "slideNumber": 53,
+          "path": "slide/slide-image/pert02/slide-053-v001.webp"
+        },
+        {
+          "slideNumber": 54,
+          "path": "slide/slide-image/pert02/slide-054-v001.webp"
+        },
+        {
+          "slideNumber": 55,
+          "path": "slide/slide-image/pert02/slide-055-v001.webp"
+        },
+        {
+          "slideNumber": 56,
+          "path": "slide/slide-image/pert02/slide-056-v001.webp"
+        }
+      ],
+      "slideCount": 57,
+      "imageCount": 57,
+      "narrationCount": 57
+    },
+    {
       "id": "pert03",
       "number": 3,
       "title": "Representasi Visual Modern: CNN, Attention, dan Vision Transformer",
       "subtitle": "Fokus Pembelajaran: menganalisis perbedaan inductive bias CNN dan Vision Transformer serta implikasinya terhadap data, komputasi, dan generalisasi. Fokus Penelitian: memilih…",
       "slidePath": "slide/pert03.md",
       "narrationPath": "slide/narasi/pert03.md",
-      "practicumPaths": [],
+      "practicumPaths": [
+        "praktikum/modul-praktikum-pertemuan-03-cnn-attention-vit.md"
+      ],
       "images": [
         {
           "slideNumber": 0,

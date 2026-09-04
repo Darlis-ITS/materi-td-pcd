@@ -1,980 +1,1268 @@
 # Slide 00 - Cover
 
-EF256129 - TD PCD
-
+EF256129 - TD PCD  
 Pertemuan 02
 
-## Critical Paper Reading dan Identifikasi Research Gap
+# Fondasi Representasi Visual: CNN, Transformer, dan Dataset Benchmark
 
-Dr. Darlis Herumurti
-
+Dr. Darlis Herumurti  
 Departemen Teknik Informatika - ITS
 
 ---
 
-# Slide 01 - Tujuan Pembelajaran dan Posisi dalam Rangkaian Perkuliahan
+# Slide 01 - Posisi Pertemuan dalam Perkuliahan
 
-## Tujuan Pertemuan 02
+## Peta Perjalanan Awal
 
-- Membaca paper ilmiah secara sistematis: problem, novelty, metode, eksperimen, klaim, dan keterbatasan.
-- Membangun kemampuan evaluasi kritis terhadap kualitas evidence dan fair baseline.
-- Membedakan research gap yang ilmiah dari sekadar variasi implementasi atau penggantian dataset.
-- Menghasilkan dua critical paper review dan satu matriks literatur awal.
-
-## Posisi dalam Course
-
-| Pertemuan | Fokus | Kaitan dengan Pertemuan 02 |
+| Pertemuan | Fokus | Pertanyaan Utama |
 |---|---|---|
-| 01 | Peta Riset Mutakhir PCD | Menyediakan peta area riset dan masalah terbuka yang menjadi bahan pemilihan paper |
-| 02 | Critical Paper Reading dan Research Gap | Membaca paper secara mendalam untuk menguji klaim dan menemukan celah ilmiah |
-| 03 | Representasi Visual Modern | Menjadi objek kajian: CNN, Attention, Vision Transformer |
+| 1 | Peta riset, audit dataset, dan baseline klasik | Apa masalah dan titik awal yang layak? |
+| 2 | Fondasi CNN, Transformer, dan dataset benchmark | Bagaimana model mempelajari representasi visual? |
+| 3 | CNN modern, attention, dan Vision Transformer | Bagaimana memilih dan membandingkan arsitektur modern? |
+| 4 | Self-supervised learning dan foundation vision models | Bagaimana belajar representasi dengan label terbatas? |
 
-## Alur Belajar
+## Posisi Pertemuan 02
 
-Pertemuan 01 → memilih area dan daftar kandidat paper.
-
-Pertemuan 02 → membaca kritis, memetakan literatur, menemukan gap.
-
-Pertemuan 03 → memahami representasi visual untuk mengevaluasi metode secara teknis.
+Pertemuan ini menjadi jembatan dari **handcrafted feature** menuju **learned representation**.
 
 ---
 
-# Slide 02 - Mengapa Critical Paper Reading Menjadi Kompetensi Inti di Jenjang Doktor
+# Slide 02 - Recap Pertemuan 01
 
-## Tuntutan Keilmuan S3
+## Yang Sudah Dipelajari
 
-- Kontribusi ilmiah harus melampaui penerapan metode pada data baru.
-- Novelty harus diposisikan terhadap state-of-the-art secara eksplisit.
-- Kemampuan mengkritisi paper orang lain menjadi bekal mengkritisi proposal sendiri.
+- Perbedaan pengolahan citra digital dan computer vision.
+- Evolusi dari image processing klasik menuju deep learning dan foundation models.
+- Pentingnya audit dataset, benchmark, baseline, dan reproducibility.
+- Pipeline klasik: preprocessing → handcrafted feature → classifier.
+- Failure analysis sebagai sumber hipotesis dan research question.
 
-## Kebiasaan yang Harus Dibangun
+## Praktikum 01
 
-- Membaca bukan sekadar memahami isi paper, melainkan menguji apakah argumen paper konsisten.
-- Setiap klaim dikaitkan dengan bukti eksperimen yang tersedia.
-- Setiap keterbatasan paper dapat menjadi awal pertanyaan penelitian baru.
-
-## Dampak pada Proposal Disertasi
-
-- Penajaman research question.
-- Pemilihan baseline yang adil.
-- Rancangan eksperimen yang mampu membuktikan kontribusi.
+- Eksplorasi dataset `digits`.
+- Baseline majority class.
+- Histogram intensitas + kNN.
+- HOG + Linear SVM.
+- Confusion matrix dan analisis salah klasifikasi.
 
 ---
 
-# Slide 03 - Dari Peta Riset ke Daftar Paper yang Layak Dibaca Kritis
+# Slide 03 - Celah antara Pertemuan 01 dan 03
 
-## Pertemuan 01 memberikan tiga hal
+## Pertemuan 01 Berakhir pada Pertanyaan
 
-1. Peta paradigma: citra klasik, deep learning, foundation model, generative vision, trustworthy vision.
-2. Daftar masalah terbuka yang relevan dengan minat disertasi.
-3. Standar benchmark dan dataset yang umum digunakan.
+> Jika handcrafted feature terbatas, bagaimana fitur dapat dipelajari langsung dari data?
 
-## Seleksi Paper di Pertemuan 02
+## Pertemuan 03 Memerlukan Fondasi
 
-- Pilih paper dari sumber: arXiv, OpenReview, jurnal seperti TPAMI/IJCV, atau konferensi seperti CVPR/ICCV/ECCV/NeurIPS/ICLR/ICML.
-- Perhatikan ketersediaan kode, data, dan reproduksibilitas.
-- Sertakan paper lama yang menjadi fondasi dan paper baru yang mewakili state-of-the-art.
+- operasi convolution dan feature map;
+- pooling dan receptive field;
+- residual connection;
+- token dan embedding;
+- query, key, dan value;
+- self-attention dan multi-head attention;
+- positional encoding;
+- patch tokenization.
 
-## Kriteria Seleksi
+## Fungsi Pertemuan 02
 
-- Relevansi terhadap masalah riset.
-- Kualitas venue dan sitasi komunitas.
-- Ketersediaan artefak: kode, model, dataset.
-- Potensi menimbulkan pertanyaan kritis dan gap.
-
----
-
-# Slide 04 - Struktur Paper Ilmiah: Anatomi Argumen
-
-## Bagian Utama Paper
-
-| Bagian | Fungsi | Pertanyaan Kritis |
-|---|---|---|
-| Abstract | Ringkasan klaim dan kontribusi | Apa yang diklaim? Bukti apa yang ditawarkan? |
-| Introduction | Motivasi, masalah, kontribusi | Mengapa masalah penting? Apa gap-nya? |
-| Related Work | Positioning terhadap penelitian lain | Apakah pembanding dikutip secara adil? |
-| Method | Deskripsi solusi | Apa asumsi? Mengapa desain ini dipilih? |
-| Experiments | Validasi klaim | Apakah eksperimen dapat memisahkan pengaruh komponen? |
-| Conclusion | Ringkasan dan keterbatasan | Apakah kesimpulan melebihi bukti? |
-
-## Cara Membaca
-
-- Baca abstract dan conclusion terlebih dahulu untuk menangkap klaim.
-- Baca experiments untuk menguji seberapa kuat bukti.
-- Baca method untuk memahami apa yang sebenarnya dikerjakan.
-- Baca related work terakhir untuk melihat positioning.
+Membuka isi “kotak hitam” CNN dan Transformer sebelum menggunakan ResNet, DeiT, dan ViT.
 
 ---
 
-# Slide 05 - Empat Lapis Strategi Membaca Paper
+# Slide 04 - Tujuan Pembelajaran Pertemuan 02
 
-## 1. Membaca Cepat
+Setelah mengikuti pertemuan ini, mahasiswa mampu:
 
-- Memindai judul, abstract, gambar utama, dan kesimpulan.
-- Tujuan: memutuskan apakah paper relevan.
-
-## 2. Membaca Kerangka
-
-- Memahami struktur argumen: masalah → metode → eksperimen → klaim.
-- Tujuan: mendapat peta logika paper.
-
-## 3. Membaca Mendalam
-
-- Menganalisis formula, arsitektur, protokol eksperimen, dan metrik.
-- Tujuan: memahami detail teknis dan asumsi.
-
-## 4. Membaca Reviewer-Style
-
-- Menguji kelemahan, pertanyaan, dan potensi perbaikan.
-- Tujuan: menilai apakah paper layak menjadi fondasi riset.
-
-## Rekomendasi
-
-- Jangan selalu membaca paper secara linear dari awal hingga akhir.
-- Sesuaikan kedalaman dengan tujuan: mencari gap vs mempelajari metode.
+- menjelaskan citra sebagai tensor;
+- menjelaskan bagaimana convolution membentuk feature map;
+- menganalisis stride, padding, pooling, dan receptive field;
+- menjelaskan alur training CNN dari nol;
+- menjelaskan fungsi residual connection;
+- menghitung mekanisme dasar self-attention;
+- menjelaskan token, embedding, multi-head attention, dan posisi;
+- menjelaskan bagaimana citra dapat diubah menjadi patch token;
+- memilih dataset berdasarkan task, anotasi, domain, dan research question;
+- mengaudit bias, leakage, lisensi, serta keterbatasan benchmark.
 
 ---
 
-# Slide 06 - Fase Awal: Klarifikasi Problem Statement
+# Slide 05 - Pertanyaan Kunci
 
-## Sebelum Menilai Metode, Pahami Masalahnya
+## Representasi
 
-- Apa fenomena atau kebutuhan yang memotivasi paper?
-- Mengapa solusi yang sudah ada dianggap belum memadai?
-- Apa tujuan akhir yang ingin dicapai?
+- Apa yang sebenarnya dipelajari CNN dari piksel?
+- Mengapa kernel CNN tidak sama dengan filter manual?
+- Bagaimana hubungan lokal berkembang menjadi representasi objek?
 
-## Rumusan Problem Statement yang Baik
+## Transformer
 
-- Spesifik: tidak terlalu luas.
-- Terukur: ada indikator keberhasilan.
-- Berkonteks: terkait dengan domain PCD tertentu.
+- Mengapa citra perlu diubah menjadi token?
+- Bagaimana satu token memilih informasi dari token lain?
+- Mengapa Transformer memerlukan positional encoding?
 
-## Contoh Pertanyaan Klarifikasi
+## Dataset
 
-- Apakah masalahnya bersifat teknis? Misalnya representasi fitur belum cukup semantik.
-- Apakah masalahnya bersifat empiris? Misalnya model gagal pada domain tertentu.
-- Apakah masalahnya bersifat teoretis? Misalnya tidak ada jaminan konvergensi.
-
----
-
-# Slide 07 - Mengidentifikasi Problem dan Motivasi pada Paper
-
-## Elemen Motivasi
-
-- Kelemahan metode sebelumnya.
-- Kebutuhan aplikasi nyata.
-- Perubahan karakteristik data.
-- Keterbatasan sumber daya komputasi.
-
-## Tanda Problem Tidak Jelas
-
-- Motivasi ditulis umum dan tidak mengarah pada pertanyaan spesifik.
-- Tidak ada penjelasan mengapa pendekatan lama gagal.
-- Kontribusi tidak berkorespondensi langsung dengan masalah.
-
-## Latihan Saat Membaca
-
-Catat dalam satu atau dua kalimat:
-
-- Problem utama paper adalah ...
-- Keterbatasan metode sebelumnya yang menjadi motivasi adalah ...
-- Kebutuhan domain yang mendorong paper adalah ...
+- Dataset populer mana yang sesuai untuk classification, detection, atau segmentation?
+- Apakah benchmark populer otomatis sesuai untuk research question kita?
 
 ---
 
-# Slide 08 - Taksonomi Kontribusi Ilmiah
+# Slide 06 - Citra adalah Tensor, Bukan Sekadar Gambar
 
-## Kontribusi Tidak Hanya Metode Baru
+## Representasi Citra RGB
 
-| Jenis Kontribusi | Deskripsi |
-|---|---|
-| Teori | Analisis formal, pemahaman sifat model, batas teoretis |
-| Algoritma/Metode | Arsitektur, prosedur, atau strategi optimasi baru |
-| Dataset | Data baru, anotasi, atau protokol pengumpulan data |
-| Evaluasi/Metrik | Ukuran kualitas baru yang lebih sesuai |
-| Framework/Pipeline | Sistem yang menyatukan komponen secara baru |
-| Analisis/Empiris | Studi sistematis yang mengubah pemahaman bidang |
+```text
+Channel × Height × Width
+3 × H × W
+```
 
-## Pertanyaan untuk Paper
+## Representasi Satu Batch
 
-- Kontribusi utama termasuk kategori apa?
-- Apakah ada kontribusi sekunder yang tidak dinyatakan penulis?
-- Apakah kontribusi yang dinyatakan benar-benar baru?
+```text
+Batch × Channel × Height × Width
+B × 3 × H × W
+```
 
----
+## Nilai Piksel
 
-# Slide 09 - Contoh Taksonomi Kontribusi dalam PCD
-
-## Dimensi Kontribusi
-
-- Representasi visual: patch embedding, attention, fitur self-supervised.
-- Arsitektur: residual connection, transformer encoder, decoder segmentation.
-- Prosedur pelatihan: pretext task, kontrastif, masked image modeling.
-- Data: dataset domain medis, citra satelit, atau kurasi benchmark.
-- Evaluasi: metrik perseptual untuk restoration, protokol evaluasi bias.
-
-## Pembacaan Kritis
-
-- Paper sering mencampur kontribusi arsitektur dan kontribusi pelatihan.
-- Tanyakan: apakah kontribusi utama terletak pada desain model, data, atau analisis?
-- Status S3 membutuhkan kontribusi yang dapat dipertanggungjawabkan secara ilmiah, bukan sekadar akurasi.
-
----
-
-# Slide 10 - Kualitas Related Work: Positioning, Bukan Daftar Pustaka
-
-## Ciri Related Work yang Lemah
-
-- Hanya menyebut nama metode dan hasil tanpa analisis.
-- Tidak menjelaskan perbedaan dengan pendekatan penulis.
-- Mengabaikan baseline penting yang seharusnya dibandingkan.
-
-## Ciri Related Work yang Kuat
-
-- Mengelompokkan pendekatan berdasarkan ide utama.
-- Menjelaskan kelebihan dan keterbatasan masing-masing kelompok.
-- Menegaskan posisi paper terhadap kelompok tersebut.
-- Menunjukkan gap yang belum diselesaikan.
-
-## Kegunaan untuk Identifikasi Gap
-
-- Related work yang baik memetakan ruang solusi.
-- Ruang kosong dalam pemetaan menunjukkan calon research gap.
-- Paper yang mengaburkan perbedaan biasanya ingin menyembunyikan keterbatasan.
-
----
-
-# Slide 11 - Positioning Paper: Comparing vs. Situating
-
-## Dua Cara Memosisikan Penelitian
-
-| Cara | Orientasi | Tujuan |
-|---|---|---|
-| Comparing | Membandingkan performa dengan metode lain | Menunjukkan keunggulan kuantitatif |
-| Situating | Menempatkan dalam peta konseptual bidang | Menjelaskan posisi ilmiah dan asumsi |
-
-## Dalam Critical Reading
-
-- Perhatikan apakah paper menjelaskan hubungan konseptual dengan pendekatan lama.
-- Apakah paper menjelaskan kapan pendekatannya cocok dan kapan tidak?
-- Paper yang hanya "lebih baik dari X" belum tentu memberikan pemahaman baru.
-
-## Untuk Penelitian S3
-
-- Positioning yang kuat membantu menyusun argumentasi novelty.
-- Positioning juga membantu memilih eksperimen pembanding secara adil.
-
----
-
-# Slide 12 - Baseline: Titik Rujukan Perbandingan
-
-## Definisi Baseline
-
-- Metode sederhana atau metode yang sudah mapan sebagai pembanding.
-- Baseline digunakan untuk mengetahui apakah kontribusi benar-benar memberi perbaikan.
-
-## Jenis Baseline
-
-| Jenis Baseline | Contoh dalam PCD |
-|---|---|
-| Sederhana | Rata-rata nilai piksel, interpolasi, mayoritas kelas |
-| Klasik | Filter, feature engineering, SVM |
-| Modern | CNN ResNet, ViT standar, YOLO |
-| Upper bound | Anotasi manusia, oracle, model dengan informasi tambahan |
-
-## Pertanyaan Kritis
-
-- Apakah baseline dipilih karena paling merepresentasikan state-of-the-art?
-- Apakah baseline dilatih ulang dengan konfigurasi yang adil?
-- Apakah baseline yang kuat dihilangkan agar selisih performa terlihat besar?
-
----
-
-# Slide 13 - Fair Baseline dan Kesalahan Umum Perbandingan
-
-## Prinsip Perbandingan yang Adil
-
-- Semua metode menggunakan data train/val/test yang sama.
-- Preprocessing dan augmentasi tidak berbeda antara baseline dan metode usulan.
-- Hyperparameter baseline dioptimalkan, bukan hanya diambil dari default.
-- Computational budget dilaporkan agar selisih performa tidak berasal dari komputasi.
-
-## Kesalahan Umum
-
-- Menggunakan checkpoint publik tanpa fine-tuning yang setara.
-- Tidak menyebut jumlah parameter dan FLOPs.
-- Melaporkan hasil terbaik metode usulan vs hasil rata-rata baseline.
-- Menggunakan metrik yang menguntungkan metode usulan.
-
-## Implikasi untuk Research Gap
-
-- Jika baseline tidak adil, gap performa yang dilaporkan bisa menyesatkan.
-- Membaca baseline secara kritis adalah bagian dari identifikasi gap.
-
----
-
-# Slide 14 - Ablation Study: Membuktikan Kontribusi Setiap Komponen
-
-## Definisi
-
-- Eksperimen pengurangan atau penambahan komponen untuk mengukur pengaruhnya terhadap hasil.
-
-## Ciri Ablation yang Baik
-
-- Setiap komponen utama diuji dampaknya.
-- Hasil dilaporkan pada metrik yang sama dan data yang sama.
-- Kesimpulan konsisten dengan arah perubahan performa.
-
-## yang Harus Dicari Saat Membaca
-
-| Komponen | Pertanyaan |
-|---|---|
-| Modul baru | Apakah performa turun saat modul dihapus? |
-| Loss / objective | Apakah pemilihan loss dibuktikan? |
-| Data / augmentasi | Apakah pengaruh data dipisahkan dari pengaruh metode? |
-| Hyperparameter | Apakah sensitivitas parameter dilaporkan? |
-
-## Tanpa Ablation, Klaim Kontribusi Tidak Kuat
-
-- Tidak dapat diketahui apakah peningkatan berasal dari komponen yang diklaim.
-- Kemungkinan besar peningkatan hanya berasal dari engineering detail.
-
----
-
-# Slide 15 - Experimental Setup: Dataset, Split, Metrik, dan Detail Implementasi
-
-## Elemen yang Wajib Diperhatikan
-
-- Dataset: ukuran, asal, lisensi, karakteristik domain.
-- Split: train/validation/test, cara sampling, potensi data leakage.
-- Metrik: definisi, keunggulan, keterbatasan, kapan metrik cocok.
-- Implementasi: framework, versi library, resolusi input, jumlah epoch, learning rate, batch size, random seed.
-
-## Tanda Reproducibility Buruk
-
-- Tidak ada kode publik.
-- Hyperparameter tidak dilaporkan.
-- Tidak ada seed yang digunakan.
-- Konfigurasi hardware tidak disebutkan.
-
-## Dampak pada Penilaian Klaim
-
-- Jika setup tidak lengkap, pembaca tidak dapat memverifikasi eksperimen.
-- Hasil yang tidak reproducible tidak dapat menjadi dasar research gap yang kuat.
-
----
-
-# Slide 16 - Mengevaluasi Klaim versus Bukti
-
-## Prinsip Dasar
-
-Setiap klaim harus diperiksa ketersediaan buktinya.
-
-## Tabel Kecocokan Klaim dan Bukti
-
-| Klaim Paper | Bukti yang Dibutuhkan | Bukti yang Sering Ditemukan | Penilaian |
-|---|---|---|---|
-| Metode lebih baik | Perbandingan dengan baseline pada metrik yang sama | Tabel perbandingan | Cek signifikansi statistik |
-| Komponen perlu | Ablation study | Tabel ablation | Cek apakah semua komponen diuji |
-| Umum/domain luas | Evaluasi lintas domain | Evaluasi satu domain | Cek generalisasi |
-| Cepat/ringan | Ukuran parameter dan waktu | Tidak dilaporkan | Cek kelengkapan |
-| Pemahaman lebih baik | Analisis interpretability | Hanya visualisasi contoh | Cek kedalaman analisis |
-
-## Pertanyaan Kunci
-
-- Apakah klaim dalam abstract didukung oleh eksperimen pada body paper?
-- Apakah kesimpulan analogi atau spekulasi dinyatakan sebagai fakta?
-
----
-
-# Slide 17 - Threats to Validity: Sistematika Kelemahan Paper
-
-## Empat Kategori Umum
-
-| Jenis Threat | Fokus | Contoh dalam PCD |
-|---|---|---|
-| Internal Validity | Apakah hubungan sebab-akibat benar? | Peningkatan akurasi karena kontribusi atau karena tuning? |
-| External Validity | Apakah hasil dapat digeneralisasi? | Model hanya diuji pada satu dataset |
-| Construct Validity | Apakah ukuran sesuai dengan konsep? | Metrik akurasi tidak mencerminkan kualitas persepsi visual |
-| Conclusion Validity | Apakah kesimpulan statistik benar? | Tidak ada multiple run atau uji statistik |
-
-## Kegunaan untuk Research Gap
-
-- Ancaman validitas menunjukkan area yang belum diselesaikan.
-- Ketidaklengkapan evaluasi dapat menjadi peluang penelitian.
-
----
-
-# Slide 18 - Reproducibility: Syarat Kontribusi Dapat Dipercaya
-
-## Reproducibility Bukan Sekadar Kode Tersedia
-
-- Kode harus dapat dijalankan pada lingkungan yang terdokumentasi.
-- Versi dependency dan library harus dicatat.
-- Random seed, data split, dan preprocessing harus eksplisit.
-
-## Tingkatan Reproducibility
-
-1. Dokumentasi: penjelasan konfigurasi eksperimen.
-2. Artefak: kode, model, dataset tersedia.
-3. Verifikasi: eksperimen dapat dijalankan ulang dengan hasil serupa.
-4. Replikasi: penelitian ulang pada data baru untuk menguji generalisasi.
-
-## Pertanyaan Kritis
-
-- Apakah semua hyperparameter dilaporkan?
-- Apakah hasil adalah rata-rata dari beberapa kali run?
-- Apakah konfigurasi baseline tersedia?
-
----
-
-# Slide 19 - Pertanyaan Kunci Saat Membaca Paper
-
-## Pertanyaan Inti Pertemuan 02
-
-1. Apakah klaim paper didukung bukti yang memadai?
-2. Apakah baseline yang digunakan adil?
-3. Apa eksperimen tambahan yang diperlukan untuk menguji klaim tersebut?
-4. Kapan metode ini berlaku dan kapan gagal?
-5. Apa asumsi yang tidak dinyatakan penulis?
-
-## Pertanyaan Tambahan
-
-- Apakah metrik yang dipilih selaras dengan tujuan masalah?
-- Apakah perbedaan performa signifikan secara praktis?
-- Apakah komputasi yang diperlukan sepadan dengan peningkatan hasil?
-
-## Catatan untuk Research Log
-
-- Jawab pertanyaan ini dalam tulisan, bukan hanya dalam kepala.
-- Simpan jawaban sebagai anotasi pada paper.
-
----
-
-# Slide 20 - Checklist Critical Paper Reading
-
-## Tahap Analisis
-
-### Problem
-
-- [ ] Masalah dinyatakan secara eksplisit.
-- [ ] Motivasi didukung data atau contoh nyata.
-
-### Method
-
-- [ ] Ide utama dijelaskan dengan jelas.
-- [ ] Asumsi dan batasan dinyatakan.
-
-### Experiments
-
-- [ ] Dataset dan split dijelaskan.
-- [ ] Baseline adil dan representatif.
-- [ ] Metrik sesuai dan tidak dipilih sepihak.
-- [ ] Ablation study menutupi semua komponen utama.
-
-### Claim
-
-- [ ] Klaim tidak melampaui hasil.
-- [ ] Keterbatasan dibahas.
-
-### Reproducibility
-
-- [ ] Kode dan lingkungan tersedia atau memungkinkan untuk direplikasi.
-
----
-
-# Slide 21 - Research Gap: Definisi dan Ciri
-
-## Definisi
-
-- Research gap adalah masalah atau pertanyaan ilmiah yang belum terjawab secara memadai oleh literatur yang ada.
-
-## Ciri Gap yang Layak Diteliti
-
-- Belum ada solusi yang memuaskan.
-- Relevan bagi komunitas ilmiah atau kebutuhan nyata.
-- Dapat dirumuskan menjadi pertanyaan penelitian yang teruji.
-- Memungkinkan dirancangnya eksperimen untuk memperoleh bukti.
-
-## yang Bukan Research Gap
-
-- Belum pernah dicoba pada dataset tertentu.
-- Implementasi metode X padahal domainnya bisa memakai Y tanpa analisis.
-- Mengganti backbone tanpa pertanyaan ilmiah baru.
-
----
-
-# Slide 22 - Gap Ilmiah vs Variasi Implementasi vs Pengganti Dataset
-
-## Perbandingan
-
-| Jenis | Pertanyaan Ilmiah | Nilai Kontribusi |
-|---|---|---|
-| Gap ilmiah | Mengapa metode lama gagal, dan bagaimana prinsip baru dapat mengatasinya? | Tinggi |
-| Variasi implementasi | Bagaimana merekayasa komponen agar bekerja lebih cepat atau lebih akurat? | Sedang |
-| Pengganti dataset | Apakah metode X bekerja pada data Y? | Rendah/tergantung domain |
-
-## Contoh Gap Ilmiah vs Pengganti Dataset
-
-- Pengganti dataset: menerapkan ViT pada dataset medis dan melaporkan akurasi.
-- Gap ilmiah: menganalisis mengapa representasi ViT kurang robust pada domain medis dan merancang representasi baru berbasis pemahaman domain.
+- Citra 8-bit umumnya memiliki nilai 0–255.
+- `ToTensor()` biasanya mengubahnya menjadi bilangan float 0–1.
+- Normalisasi menggeser dan menskalakan distribusi input.
 
 ## Pesan Utama
 
-- Gunakan pertanyaan "mengapa" dan "bagaimana" untuk mengangkat variasi implementasi menjadi gap ilmiah.
+Semua operasi CNN dan Transformer pada akhirnya bekerja pada tensor numerik.
 
 ---
 
-# Slide 23 - Tipologi Research Gap
+# Slide 07 - Dari Filter Manual ke Kernel yang Dipelajari
 
-## Jenis Gap yang Dapat Diidentifikasi
+## Pada Image Processing Klasik
 
-| Tipe Gap | Fokus | Contoh dalam PCD |
-|---|---|---|
-| Knowledge gap | Pengetahuan yang belum ada | Bagaimana fitur self-supervised berperilaku pada domain spesifik |
-| Methodological gap | Metode belum memadai | Belum ada pendekatan yang menggabungkan struktur 3D dan representasi semantik |
-| Empirical gap | Bukti empiris kurang | Evaluasi lintas domain belum dilakukan |
-| Theoretical gap | Teori belum menjelaskan | Tidak ada analisis tentang batas performa model generative |
-| Population/domain gap | Domain tertentu belum terwakili | Citra bawah air, citra satelit, citra medis langka |
+Kernel ditentukan manusia:
 
-## Catatan
+- Gaussian blur;
+- Sobel edge detector;
+- sharpening;
+- Laplacian.
 
-- Gap dapat berada pada lebih dari satu tipe.
-- Tuliskan tipe gap secara eksplisit untuk memperjelas novelty.
+## Pada CNN
 
----
+- Nilai kernel dimulai dari inisialisasi tertentu.
+- Backpropagation memperbarui nilai kernel.
+- Kernel dipelajari untuk menurunkan loss tugas target.
 
-# Slide 24 - Sumber Research Gap yang Dapat Ditemukan dari Paper
-
-## Lokasi Gap dalam Paper
-
-- Bagian Future Work: penulis menyatakan apa yang belum dikerjakan.
-- Bagian Limitation: keterbatasan yang diakui penulis.
-- Bagian Related Work: celah yang tidak dibahas atau tidak dijawab.
-- Bagian Experiments: hasil yang hanya diuji pada kondisi sempit.
-
-## Sumber Lain
-
-- Kegagalan replikasi atau ketidakstabilan hasil.
-- Pergeseran karakteristik data dari waktu ke waktu.
-- Kemajuan teknologi yang membuat asumsi lama tidak berlaku.
-
-## Latihan
-
-- Untuk setiap paper yang dibaca, catat: "Penulis mengakui belum menangani ..."
-- Jika keterbatasan paper menjawab masalah yang relevan, gap mulai terlihat.
-
----
-
-# Slide 25 - Gap, Research Question, Hipotesis, dan Novelty
-
-## Alur Konseptual
-
-Literatur → Gap → Research Question → Hipotesis → Novelty → Kontribusi
-
-## Definisi
-
-| Istilah | Makna |
-|---|---|
-| Research Gap | Masalah yang belum terjawab |
-| Research Question | Pertanyaan spesifik yang akan dijawab |
-| Hipotesis | Dugaan ilmiah yang dapat diuji |
-| Novelty | Kebaruan yang membedakan dari penelitian sebelumnya |
-
-## Hubungan dengan Pertemuan 13
-
-- Pertemuan 02 berfokus pada menemukan gap.
-- Pertemuan 13 akan memperdalam formulasi research question, hipotesis, dan novelty.
-- Matriks literatur yang dibuat sekarang menjadi bahan utama pertemuan 13.
-
----
-
-# Slide 26 - Workflow Identifikasi Research Gap
-
-## Diagram Alur
+## Perubahan Paradigma
 
 ```text
-Kumpulkan paper
-      |
-      v
-Anotasi problem, metode, klaim, limitasi
-      |
-      v
-Susun matriks literatur
-      |
-      v
-Bandingkan klaim vs bukti
-      |
-      v
-Temukan kelemahan / ruang kosong
-      |
-      v
-Tulis gap candidates
-      |
-      v
-Validasi gap: relevan? baru? dapat diuji?
-      |
-      v
-Rumuskan research question awal
+Manusia menentukan fitur
+          ↓
+Model mempelajari fitur dari data dan objective
 ```
 
-## Prinsip
-
-- Gap yang baik lahir dari akumulasi pemahaman literatur.
-- Satu paper dapat memicu banyak kandidat gap, tetapi hanya sedikit yang layak diteliti.
-
 ---
 
-# Slide 27 - Matriks Literatur: Struktur Perbandingan Paper
+# Slide 08 - Operasi Convolution
 
-## Fungsi Matriks Literatur
+Kernel digeser di atas citra dan menghasilkan feature map.
 
-- Membandingkan paper secara konsisten.
-- Melihat tren metode, dataset, dan hasil.
-- Menemukan area yang belum dieksplorasi.
-
-## Kolom yang Direkomendasikan
-
-| Kolom | Isi |
-|---|---|
-| ID | Nomor urut |
-| Paper | Judul, penulis, tahun, venue |
-| Problem | Masalah yang diangkat |
-| Method | Pendekatan utama |
-| Dataset | Data yang digunakan |
-| Baseline | Pembanding yang dilaporkan |
-| Metric | Metrik evaluasi |
-| Result | Hasil utama singkat |
-| Limitation | Keterbatasan yang diakui |
-| Our Notes | Catatan kritis pribadi |
-
-## Tips
-
-- Gunakan satu baris per paper.
-- Tambahkan kolom thematic category untuk memudahkan analisis lintas paper.
-
----
-
-# Slide 28 - Membuat Matriks Literatur pada Notebook
-
-## Strategi Penyimpanan
-
-- Gunakan pandas DataFrame pada Jupyter Notebook.
-- Simpan salinan dalam format CSV agar mudah dibagikan.
-- Perbarui matriks di setiap pertemuan.
-
-## Contoh Struktur dengan Markdown Table
-
-```markdown
-| ID | Paper | Problem | Method | Dataset | Metric | Limitation |
-|---|-------|---------|--------|---------|--------|------------|
-| 001 | ... | ... | ... | ... | ... | ... |
+```text
+Input patch × Kernel
+       ↓
+Perkalian elemen dan penjumlahan
+       ↓
+Satu nilai pada feature map
 ```
 
-## Pertimbangan
+## Persamaan Sederhana
 
-- Untuk puluhan paper, tabel Markdown mulai sulit dikelola.
-- Gunakan pandas dan simpan sebagai CSV untuk analisis lanjutan.
-- Gunakan kolom `tags` untuk kategori tematik.
+```text
+Y[i,j] = Σm Σn X[i+m,j+n] W[m,n] + b
+```
+
+## Weight Sharing
+
+Kernel yang sama digunakan di seluruh posisi sehingga:
+
+- jumlah parameter lebih kecil;
+- pola dapat dikenali pada lokasi berbeda;
+- model memiliki inductive bias spasial.
 
 ---
 
-# Slide 29 - Contoh Kode Awal Matriks Literatur dengan Python
+# Slide 09 - Channel Input dan Output
+
+## Contoh Layer
 
 ```python
-import pandas as pd
-
-columns = [
-    "id", "title", "year", "venue", "problem",
-    "method", "dataset", "metric", "result",
-    "limitation", "tags", "notes"
-]
-
-matrix = pd.DataFrame(columns=columns)
-
-matrix.loc[0] = [
-    1,
-    "Contoh Paper Judul",
-    2026,
-    "CVPR",
-    "Masalah utama yang dikaji",
-    "Metode yang diusulkan",
-    "Nama dataset",
-    "PSNR / mAP / Accuracy",
-    "Hasil singkat",
-    "Keterbatasan yang diakui",
-    "self-supervised; segmentation",
-    "Catatan kritis: baseline belum adil"
-]
-
-## Simpan
-matrix.to_csv("matriks_literatur.csv", index=False)
-```
-
-## Catatan
-
-- Ganti nilai contoh dengan hasil anotasi paper aktual.
-- Gunakan kolom `tags` untuk memfilter paper berdasarkan topik.
-
----
-
-# Slide 30 - Anotasi Paper pada Notebook: Template Terstruktur
-
-## Tujuan Anotasi
-
-- Mencatat pemahaman saat membaca.
-- Menyimpan jawaban atas pertanyaan kritis.
-- Menjadi bahan diskusi dan matriks literatur.
-
-## Template Anotasi Berbasis Markdown
-
-```markdown
-## Anotasi Paper
-- ID: 001
-- Judul: ...
-- Problem:
-  - Masalah yang diangkat
-- Novelty:
-  - Klaim kebaruan penulis
-- Metode:
-  - Ide utama
-- Eksperimen:
-  - Dataset, metrik, baseline
-- Klaim vs Bukti:
-  - Apakah klaim didukung?
-- Keterbatasan:
-  - Yang diakui penulis
-- Research Gap:
-  - Ide pertanyaan lanjutan
-```
-
----
-
-# Slide 31 - Contoh Anotasi pada Paper Pilihan RPS
-
-## Contoh: Paper tentang Self-Supervised Vision Model
-
-```text
-ID: 002
-Judul: DINOv2 (contoh dari daftar RPS)
-Problem: representasi visual tanpa supervisi
-      masih kurang kaya untuk berbagai tugas turunan
-Novelty: mempelajari fitur visual serbaguna
-      tanpa label manual pada skala besar
-Metode: self-supervised learning, teacher-student,
-      regularisasi dan kurasi data
-Eksperimen: transfer learning ke berbagai tugas
-Baseline: model supervised dan model self-supervised sebelumnya
-Limitasi: data pelatihan besar dan komputasi tinggi,
-      tidak semua domain diuji
-Research Gap: bagaimana meminimalkan kebutuhan komputasi
-      pada domain spesifik tanpa kehilangan generalisasi
-```
-
-## Catatan
-
-- Isi ini ilustrasi anotasi, bukan klaim angka atau hasil.
-- Anotasi asli disesuaikan dengan paper yang dibaca.
-
----
-
-# Slide 32 - Latihan Argumentasi Kritis ala Reviewer
-
-## Pertanyaan Reviewer untuk Setiap Paper
-
-### Strength
-
-- Apa kekuatan utama paper?
-- Bagian mana yang paling meyakinkan?
-
-### Weakness
-
-- Apa kelemahan metodologis?
-- Apakah ada bias dalam pemilihan baseline?
-- Apakah ada eksperimen yang hilang?
-
-### Questions
-
-- Apa satu eksperimen yang wajib diminta kepada penulis?
-- Apa batas interpretasi dari hasil yang dilaporkan?
-
-### Decision
-
-- Accept, minor revision, major revision, atau reject?
-- Jelaskan satu alasan utama dari keputusan tersebut.
-
-## Latihan Berpasangan
-
-- Satu mahasiswa berperan sebagai penulis.
-- Mahasiswa lain berperan sebagai reviewer.
-- Gunakan pertanyaan di atas untuk diskusi 15-20 menit.
-
----
-
-# Slide 33 - Simulasi Critical Review pada Abstrak Hipotetis
-
-## Contoh Abstrak Ilustratif
-
-```text
-Kami mengusulkan metode segmentasi baru dengan
-menggabungkan transformer dan modul perhatian.
-Metode mencapai akurasi lebih tinggi daripada
-baseline U-Net pada dataset CT scan.
-```
-
-## Kritik yang Layak Dilontarkan
-
-- Apa klaim utama? "Lebih tinggi daripada U-Net".
-- Apakah baseline cukup kuat? U-Net dasar mungkin tidak representatif.
-- Apakah dataset tunggal cukup untuk menyimpulkan keunggulan?
-- Apakah modul perhatian dianalisis melalui ablation?
-- Apakah ukuran model dan biaya komputasi dibandingkan?
-- Apakah metrik yang digunakan tepat untuk segmentasi?
-
-## Nilai Latihan
-
-- Melatih kepekaan terhadap klaim dan bukti.
-- Menghasilkan pertanyaan yang menjadi bahan eksperimen lanjutan.
-
----
-
-# Slide 34 - Praktikum: Struktur Notebook Critical Paper Review
-
-## Bagian Notebook
-
-1. **Identitas Paper**: metadata dan link.
-2. **Ringkasan**: abstract dalam bahasa sendiri.
-3. **Problem**: masalah, motivasi, gap yang diklaim penulis.
-4. **Metode**: alur diagram atau bullet.
-5. **Eksperimen**: dataset, baseline, metrik, hasil.
-6. **Evaluasi Kritis**: klaim vs bukti, threats to validity.
-7. **Keterbatasan dan Gap**: peluang riset lanjutan.
-
-## Format
-
-- Gunakan H2 untuk setiap bagian.
-- Simpan satu notebook per paper.
-- Gunakan sel Markdown untuk narasi dan sel Python untuk tabel/metrik.
-
----
-
-# Slide 35 - Praktikum: Workflow Pembuatan Matriks Literatur
-
-## Urutan Kerja
-
-```text
-1. Buat daftar 5-10 paper dari reading list.
-2. Baca paper secara sistematis.
-3. Isi template anotasi untuk setiap paper.
-4. Pindahkan hasil anotasi ke DataFrame.
-5. Tambahkan kolom tematik dan prioritas.
-6. Buat visualisasi sederhana, misalnya sebaran
-   paper berdasarkan topik atau dataset.
-7. Tulis catatan gap di bagian akhir notebook.
-```
-
-## Kriteria Keberhasilan
-
-- Matriks berisi evaluasi kritis, bukan sekadar rangkuman.
-- Gap yang ditulis merujuk pada kombinasi keterbatasan beberapa paper.
-- Notebook dapat diperbarui sepanjang semester.
-
----
-
-# Slide 36 - Praktikum: Contoh Analisis Sederhana Matriks Literatur
-
-```python
-import pandas as pd
-
-df = pd.read_csv("matriks_literatur.csv")
-
-## Sebaran paper berdasarkan topik
-print(df["tags"].value_counts())
-
-## Paper yang menyebutkan keterbatasan tertentu
-mask = df["limitation"].str.contains("domain", case=False)
-print(df.loc[mask, ["title", "limitation"]])
-
-## Perbandingan dataset yang dipakai
-print(df["dataset"].value_counts())
+nn.Conv2d(
+    in_channels=3,
+    out_channels=32,
+    kernel_size=3,
+    padding=1
+)
 ```
 
 ## Interpretasi
 
-- Jika banyak paper menggunakan dataset yang sama, ada risiko overfitting benchmark.
-- Jika banyak paper mengakui limitasi domain yang sama, indikasi gap domain muncul.
-- Catatan ini dijadikan bahan diskusi pertemuan 13.
+- Tiga input channel berasal dari RGB.
+- Terdapat 32 kernel yang dipelajari.
+- Setiap kernel menghasilkan satu output channel.
+- Output menjadi 32 feature map.
+
+```text
+B × 3 × 32 × 32
+        ↓ Conv2d
+B × 32 × 32 × 32
+```
 
 ---
 
-# Slide 37 - Aktivitas Seminar Paper dan Diskusi Kelompok
+# Slide 10 - Stride dan Padding Mengatur Resolusi
 
-## Format Seminar Paper
+## Ukuran Output
 
-- Satu kelompok menyajikan satu paper secara kritis.
-- Penyaji membahas problem, metode, eksperimen, klaim, dan keterbatasan.
-- Peserta lain bertindak sebagai reviewer.
+```text
+O = floor((I + 2P - K) / S) + 1
+```
 
-## Peran Reviewer
+| Simbol | Makna |
+|---|---|
+| `I` | Ukuran input |
+| `K` | Ukuran kernel |
+| `P` | Padding |
+| `S` | Stride |
+| `O` | Ukuran output |
 
-- Menyiapkan minimal tiga pertanyaan kritis.
-- Menilai cukup tidaknya bukti untuk setiap klaim.
-- Mengusulkan satu eksperimen tambahan.
+## Contoh
 
-## Keluaran Diskusi
-
-- Catatan komentar dan sanggahan.
-- Daftar masalah terbuka yang mungkin menjadi gap.
-- Rekomendasi perbaikan paper atau arah riset lanjutan.
-
----
-
-# Slide 38 - Target Keluaran Pertemuan 02
-
-## Produk yang Harus Dihasilkan
-
-1. **Dua critical paper review**: deskripsi sistematis, evaluasi kritis, dan rekomendasi riset lanjutan.
-2. **Satu matriks literatur**: perbandingan problem, data, metode, metrik, hasil, dan keterbatasan.
-
-## Bentuk Penyerahan
-
-- Jupyter Notebook untuk setiap critical paper review.
-- Satu notebook atau CSV berisi matriks literatur.
-- Semua artefak disimpan dalam repositori Git yang rapi.
-
-## Kualitas yang Dinilai
-
-- Ketajaman analisis, bukan panjang dokumen.
-- Kemampuan membedakan klaim dan bukti.
-- Keterkaitan antara keterbatasan paper dan gap yang diidentifikasi.
+| Input | Kernel | Padding | Stride | Output |
+|---:|---:|---:|---:|---:|
+| 32 | 3 | 0 | 1 | 30 |
+| 32 | 3 | 1 | 1 | 32 |
+| 32 | 3 | 1 | 2 | 16 |
 
 ---
 
-# Slide 39 - Menuju Pertemuan Berikutnya
+# Slide 11 - Aktivasi Membuat Model Nonlinear
 
-## Integrasi dengan Perjalanan Course
+## Tanpa Aktivasi
 
-- Matriks literatur yang dibuat sekarang akan diperbarui sepanjang semester.
-- Critical reading menjadi dasar untuk mengevaluasi metode pada pertemuan 03.
-- Research gap yang diidentifikasi akan diperdalam menjadi research question pada pertemuan 13.
+Beberapa transformasi linear yang disusun tetap ekuivalen dengan satu transformasi linear.
 
-## Tugas Antara
+## ReLU
 
-- Selesaikan anotasi untuk dua paper yang dipilih.
-- Masukkan paper tersebut ke dalam matriks literatur.
-- Siapkan satu pertanyaan diskusi untuk seminar paper.
+```text
+ReLU(x) = max(0, x)
+```
 
-## Persiapan Pertemuan 03
+## Fungsi
 
-- Topik: Representasi Visual Modern: CNN, Attention, dan Vision Transformer.
-- Bacalah kembali struktur dasar CNN dan transformer agar diskusi perbandingan arsitektur lebih tajam.
+- menambahkan non-linearitas;
+- memungkinkan model mempelajari pola kompleks;
+- sederhana dan efisien;
+- membantu optimasi dibandingkan aktivasi jenuh tertentu.
+
+## Catatan
+
+Aktivasi bukan sekadar langkah tambahan. Tanpa non-linearitas, kedalaman jaringan kehilangan sebagian besar manfaat representasionalnya.
 
 ---
 
-# Slide 40 - Penutup
+# Slide 12 - Pooling Mereduksi Resolusi
 
-TERIMA KASIH
+## Max Pooling
 
-Pertemuan berikutnya
+Memilih nilai terbesar pada suatu wilayah.
 
-**Representasi Visual Modern: CNN, Attention, dan Vision Transformer**
+```text
+Feature map 32 × 32
+       ↓ MaxPool 2 × 2
+Feature map 16 × 16
+```
+
+## Tujuan
+
+- mengurangi ukuran spasial;
+- mengurangi biaya komputasi;
+- memperbesar receptive field efektif;
+- memberikan toleransi terhadap pergeseran kecil.
+
+## Trade-off
+
+Reduksi terlalu agresif dapat menghilangkan objek kecil dan detail lokasi.
+
+---
+
+# Slide 13 - Hierarki Feature Map
+
+## Lapisan Awal
+
+- tepi;
+- orientasi;
+- perubahan intensitas;
+- warna dan tekstur sederhana.
+
+## Lapisan Menengah
+
+- pola tekstur lebih kompleks;
+- sudut;
+- bagian objek;
+- kombinasi fitur lokal.
+
+## Lapisan Dalam
+
+- konfigurasi bagian;
+- bentuk tingkat tinggi;
+- fitur yang lebih terkait dengan kelas atau tugas.
+
+## Catatan
+
+Hierarki ini merupakan kecenderungan umum, bukan aturan bahwa setiap channel selalu memiliki arti tunggal yang mudah dinamai.
+
+---
+
+# Slide 14 - Receptive Field Membesar Bertahap
+
+## Definisi
+
+Receptive field adalah wilayah input yang dapat memengaruhi satu aktivasi.
+
+```text
+Layer awal  → melihat wilayah lokal
+Layer tengah → menggabungkan beberapa wilayah lokal
+Layer dalam → menerima konteks yang lebih luas
+```
+
+## Implikasi
+
+- CNN tidak langsung menghubungkan semua lokasi citra.
+- Hubungan jarak jauh memerlukan beberapa lapisan.
+- Pooling atau stride mempercepat pertumbuhan receptive field.
+- Receptive field teoretis tidak selalu sama dengan pengaruh efektif aktual.
+
+---
+
+# Slide 15 - Arsitektur Simple CNN
+
+```text
+Input RGB
+  ↓
+Conv → BatchNorm → ReLU → Pool
+  ↓
+Conv → BatchNorm → ReLU → Pool
+  ↓
+Conv → BatchNorm → ReLU → Pool
+  ↓
+Global Average Pooling
+  ↓
+Linear Classifier
+  ↓
+Probabilitas Kelas
+```
+
+## Tujuan Praktikum
+
+- melihat perubahan bentuk tensor;
+- mengamati learning curve;
+- memvisualisasikan feature map;
+- membedakan handcrafted feature dan learned feature.
+
+---
+
+# Slide 16 - Model Belajar dari Loss
+
+## Training Loop
+
+```text
+Input + Label
+    ↓
+Forward pass
+    ↓
+Prediction
+    ↓
+Hitung loss
+    ↓
+Backpropagation
+    ↓
+Update parameter
+```
+
+## Cross-Entropy
+
+```text
+L = -log p(y | x)
+```
+
+Model mendapat penalti besar ketika probabilitas kelas yang benar rendah.
+
+---
+
+# Slide 17 - Training, Validation, dan Test Berbeda Fungsi
+
+| Split | Fungsi | Boleh Memengaruhi Model? |
+|---|---|---|
+| Training | Memperbarui parameter | Ya |
+| Validation | Memilih epoch dan hyperparameter | Tidak langsung melalui gradien |
+| Test | Estimasi akhir generalisasi | Tidak |
+
+## Risiko Umum
+
+- memilih model berdasarkan test accuracy;
+- mencoba banyak konfigurasi pada test set;
+- melakukan preprocessing sebelum split;
+- membiarkan sampel dari subjek yang sama tersebar antarsplit.
+
+## Prinsip
+
+Test set bukan validation set tambahan.
+
+---
+
+# Slide 18 - Augmentasi Membawa Asumsi
+
+## Contoh
+
+- horizontal flip;
+- random crop;
+- rotasi;
+- color jitter;
+- blur atau noise.
+
+## Tujuan
+
+- menambah variasi tampilan;
+- mengurangi overfitting;
+- menyatakan invariance yang diharapkan.
+
+## Peringatan
+
+Augmentasi yang valid bergantung pada domain:
+
+- flip mungkin tidak valid untuk tulisan;
+- rotasi besar mungkin tidak valid untuk citra medis tertentu;
+- perubahan warna dapat merusak informasi diagnostik.
+
+---
+
+# Slide 19 - Residual Connection Membantu Jaringan Dalam
+
+## Masalah
+
+Jaringan lebih dalam tidak otomatis lebih mudah dilatih. Optimasi dapat mengalami degradation problem.
+
+## Residual Block
+
+```text
+y = F(x) + x
+```
+
+## Fungsi Identity Path
+
+- mempermudah aliran gradien;
+- memungkinkan blok belajar koreksi terhadap input;
+- memudahkan pembelajaran fungsi identitas;
+- menjadi fondasi ResNet.
+
+## Jembatan ke Pertemuan 03
+
+ResNet-18 dan ResNet-50 menggunakan prinsip ini dalam skala lebih besar.
+
+---
+
+# Slide 20 - Inductive Bias CNN
+
+## Asumsi Bawaan
+
+- **Lokalitas:** tetangga spasial dianggap penting.
+- **Weight sharing:** pola yang sama dapat muncul di lokasi berbeda.
+- **Translasi ekuivariansi:** pergeseran input menggeser feature map.
+- **Hierarki:** pola kompleks tersusun dari pola sederhana.
+
+## Konsekuensi
+
+- relatif data-efficient;
+- cocok untuk banyak citra alami;
+- baseline kuat pada dataset kecil dan menengah;
+- hubungan global dibangun secara bertahap.
+
+---
+
+# Slide 21 - Mengapa Kita Memerlukan Mekanisme Global?
+
+## Contoh Hubungan Jarak Jauh
+
+- bagian objek yang terpisah;
+- konteks objek dan lingkungan;
+- struktur global pada citra medis;
+- pola wilayah luas pada citra satelit;
+- hubungan antarelemen dokumen.
+
+## Keterbatasan Jalur Lokal
+
+CNN dapat menangkap hubungan global, tetapi informasi harus melewati beberapa lapisan.
+
+## Gagasan Transformer
+
+Mengizinkan setiap elemen melihat elemen lain secara langsung melalui self-attention.
+
+---
+
+# Slide 22 - Transformer Bekerja pada Token
+
+## Bentuk Input
+
+```text
+Batch × Jumlah Token × Dimensi Embedding
+B × N × D
+```
+
+## Token
+
+Unit informasi yang diproses Transformer.
+
+## Embedding
+
+Vektor numerik berdimensi `D` yang merepresentasikan sebuah token.
+
+## Dalam Vision
+
+Token dapat berasal dari:
+
+- patch citra;
+- region atau proposal objek;
+- feature map CNN;
+- token multimodal.
+
+---
+
+# Slide 23 - Query, Key, dan Value
+
+```text
+Q = XWQ
+K = XWK
+V = XWV
+```
+
+## Intuisi
+
+| Komponen | Pertanyaan Intuitif |
+|---|---|
+| Query | Informasi apa yang sedang saya cari? |
+| Key | Informasi seperti apa yang saya miliki? |
+| Value | Informasi apa yang akan saya kirim? |
+
+## Pesan Penting
+
+Q, K, dan V bukan metadata yang diberikan manusia. Ketiganya merupakan proyeksi yang dipelajari.
+
+---
+
+# Slide 24 - Scaled Dot-Product Attention
+
+```text
+Attention(Q,K,V) = softmax(QKᵀ / √dk) V
+```
+
+## Langkah
+
+1. Bandingkan query dengan seluruh key.
+2. Skala skor dengan `√dk`.
+3. Normalisasi menggunakan softmax.
+4. Gunakan bobot untuk menggabungkan value.
+
+## Interpretasi Attention Matrix
+
+- Setiap baris mewakili satu query.
+- Setiap kolom mewakili key yang diperhatikan.
+- Jumlah bobot pada satu baris adalah satu.
+- Hubungan bersifat terarah dan tidak harus simetris.
+
+---
+
+# Slide 25 - Mengapa Skor Perlu Diskalakan?
+
+Ketika dimensi key besar, dot product cenderung memiliki magnitudo lebih besar.
+
+## Tanpa Skala
+
+- softmax dapat menjadi sangat tajam;
+- sebagian probabilitas mendekati nol atau satu;
+- gradien menjadi kurang informatif;
+- training lebih sulit distabilkan.
+
+## Dengan `√dk`
+
+Skala skor lebih terkendali sebelum masuk softmax.
+
+## Catatan
+
+Scaling bukan mekanisme untuk menentukan token penting. Scaling menjaga stabilitas numerik dan optimasi.
+
+---
+
+# Slide 26 - Multi-Head Attention Menangkap Banyak Hubungan
+
+## Mekanisme
+
+- Embedding dibagi menjadi beberapa head.
+- Setiap head memiliki proyeksi Q, K, dan V.
+- Hasil head digabungkan dan diproyeksikan kembali.
+
+```text
+Input
+ ├─ Head 1 → hubungan tertentu
+ ├─ Head 2 → hubungan lain
+ ├─ Head 3 → hubungan lain
+ └─ Head 4 → hubungan lain
+       ↓
+Concatenate → Linear Projection
+```
+
+## Peringatan
+
+Tidak setiap head otomatis memiliki fungsi yang mudah diinterpretasikan.
+
+---
+
+# Slide 27 - Posisi Tidak Tersedia Secara Bawaan
+
+Self-attention memproses hubungan antartoken, tetapi tidak mengetahui urutan spasial tanpa informasi tambahan.
+
+## Positional Encoding
+
+- sinusoidal;
+- learnable positional embedding;
+- relative positional bias;
+- rotary atau variasi lain.
+
+## Dalam Citra
+
+Posisi membantu membedakan:
+
+- patch kiri dan kanan;
+- bagian atas dan bawah;
+- kedekatan spasial;
+- struktur susunan objek.
+
+---
+
+# Slide 28 - Transformer Encoder Block
+
+```text
+Input Token
+    ↓
+LayerNorm
+    ↓
+Multi-Head Self-Attention
+    ↓
+Add Residual
+    ↓
+LayerNorm
+    ↓
+MLP + GELU
+    ↓
+Add Residual
+    ↓
+Output Token
+```
+
+## Persamaan dengan CNN Modern
+
+- residual connection;
+- normalization;
+- tumpukan beberapa blok;
+- representasi semakin abstrak.
+
+---
+
+# Slide 29 - Patch Menghubungkan Citra dan Transformer
+
+## Contoh
+
+Citra 32×32 dibagi menjadi patch 4×4:
+
+```text
+(32 / 4) × (32 / 4) = 8 × 8 = 64 patch
+```
+
+## Patch Embedding
+
+```text
+Citra
+→ Potong menjadi patch
+→ Flatten setiap patch
+→ Linear projection
+→ Patch token
+```
+
+Implementasi efisien dapat menggunakan `Conv2d` dengan kernel dan stride sebesar patch size.
+
+## Jembatan
+
+Praktikum 03 menggunakan konsep yang sama pada DeiT dan Vision Transformer modern.
+
+---
+
+# Slide 30 - Tiny Image Transformer sebagai Model Pendidikan
+
+## Komponen
+
+- patch embedding;
+- token `[CLS]`;
+- learnable positional embedding;
+- beberapa Transformer encoder block;
+- LayerNorm;
+- linear classifier.
+
+## Alur
+
+```text
+Image → Patch Tokens
+      → [CLS] + Position
+      → Transformer Blocks
+      → [CLS] Representation
+      → Class Prediction
+```
+
+## Batasan
+
+Model kecil ini digunakan untuk memahami mekanisme, bukan mereproduksi keseluruhan strategi training ViT atau DeiT.
+
+---
+
+# Slide 31 - CNN dan Transformer Membawa Bias Berbeda
+
+| Aspek | CNN | Transformer |
+|---|---|---|
+| Unit awal | Piksel dan tetangga lokal | Token |
+| Operasi utama | Convolution | Self-attention |
+| Bias lokal | Kuat | Lebih lemah |
+| Relasi global | Bertahap | Langsung antartoken |
+| Informasi posisi | Tersirat pada grid | Perlu encoding/bias posisi |
+| Normalisasi umum | BatchNorm | LayerNorm |
+| Kebutuhan data dari nol | Relatif lebih kecil | Umumnya lebih besar |
+
+## Pertanyaan Penelitian
+
+Apakah perbedaan hasil berasal dari arsitektur, data, pretraining, atau strategi training?
+
+---
+
+# Slide 32 - Dataset adalah Bagian dari Metode
+
+Dataset menentukan:
+
+- fenomena apa yang dapat dipelajari;
+- label dan task yang dapat dievaluasi;
+- populasi yang direpresentasikan;
+- jenis bias yang mungkin masuk;
+- klaim generalisasi yang dapat dibuat;
+- benchmark pembanding yang tersedia.
+
+## Prinsip
+
+> Dataset bukan sekadar bahan bakar model; dataset membatasi arti hasil penelitian.
+
+Model yang unggul pada satu benchmark belum tentu unggul pada domain atau distribution shift lain.
+
+---
+
+# Slide 33 - Anatomi Dataset Computer Vision
+
+| Komponen | Pertanyaan Audit |
+|---|---|
+| Unit data | Satu citra, video, frame, subjek, atau studi? |
+| Input | RGB, grayscale, multispektral, depth, atau multimodal? |
+| Label | Kelas, bounding box, mask, keypoint, caption, atau pair? |
+| Granularitas | Image-level, object-level, pixel-level, atau sequence-level? |
+| Split | Acak, subject-wise, temporal, geographical, atau cross-domain? |
+| Sumber | Web, sensor, klinik, satelit, laboratorium, atau simulasi? |
+| Lisensi | Boleh untuk riset, komersial, redistribusi, atau terbatas? |
+| Risiko | Bias, privasi, duplikasi, shortcut, dan leakage? |
+
+---
+
+# Slide 34 - Dataset Low-Level Image Processing
+
+| Dataset | Fokus | Penggunaan Umum |
+|---|---|---|
+| BSD500/BSDS500 | Natural images + boundary annotation | Edge detection dan segmentation |
+| DIV2K | 1.000 citra resolusi 2K | Super-resolution dan restoration |
+| Set5 dan Set14 | Test set berukuran kecil | Benchmark klasik super-resolution |
+| BSD100 dan Urban100 | Natural/urban structures | Evaluasi super-resolution |
+| SIDD | Pasangan noisy-clean dari kamera ponsel | Real image denoising |
+| GoPro | Pasangan blurred-sharp | Motion deblurring |
+| REDS | Video resolusi tinggi | Deblurring, super-resolution, dan restoration |
+
+## Catatan
+
+Benchmark kecil seperti Set5 bukan data training yang memadai; fungsinya terutama sebagai test set pembanding.
+
+---
+
+# Slide 35 - Dataset Image Quality dan Restoration
+
+| Dataset | Jenis Data | Task |
+|---|---|---|
+| Kodak24 | Citra natural berkualitas tinggi | Compression dan restoration evaluation |
+| LIVE IQA | Distorsi sintetis + human score | Full-reference image quality assessment |
+| TID2013 | Banyak jenis dan tingkat distorsi | Image quality assessment |
+| KADID-10k | Distorsi sintetis berskala lebih besar | IQA dan perceptual quality |
+| DPED | Foto perangkat berbeda | Photo enhancement |
+| LOL/LOL-v2 | Pasangan low-light dan normal-light | Low-light enhancement |
+
+## Pemilihan Metrik
+
+- PSNR dan SSIM mengukur kesamaan tertentu terhadap reference.
+- LPIPS dan perceptual metrics mencoba mendekati kesamaan representasional.
+- Human evaluation tetap penting ketika kualitas perseptual menjadi klaim utama.
+
+---
+
+# Slide 36 - Dataset Fondasi dan Klasifikasi
+
+| Dataset | Karakteristik | Umum Digunakan untuk |
+|---|---|---|
+| MNIST | 70 ribu digit grayscale 28×28 | Pengenalan digit dan pembelajaran awal |
+| Fashion-MNIST | 70 ribu citra pakaian grayscale | Baseline klasifikasi sederhana |
+| CIFAR-10 | 60 ribu citra 32×32, 10 kelas | CNN kecil, augmentasi, robustness |
+| CIFAR-100 | 60 ribu citra, 100 kelas | Klasifikasi lebih granular |
+| ImageNet-1K | Sekitar 1,28 juta train, 1.000 kelas | Pretraining dan benchmark klasifikasi |
+
+## Catatan
+
+- MNIST dan CIFAR cocok untuk pembelajaran serta debugging.
+- ImageNet berpengaruh besar dalam perkembangan deep visual representation.
+- Dataset kecil tidak cukup untuk menyimpulkan kinerja pada citra dunia nyata secara luas.
+
+---
+
+# Slide 37 - Dataset Detection dan Segmentation
+
+| Dataset | Anotasi Utama | Penggunaan |
+|---|---|---|
+| PASCAL VOC 2007/2012 | Kelas, bounding box, segmentation | Benchmark klasik detection/segmentation |
+| MS COCO | Box, instance mask, keypoint, caption | Detection, instance segmentation, pose, captioning |
+| Open Images | Label citra, box, relation, mask pada subset | Detection skala besar dan long-tail |
+| ADE20K | Semantic mask berbagai scene | Semantic segmentation |
+
+## Perbedaan Task
+
+- Classification: apa yang ada dalam citra?
+- Detection: apa dan di mana objek berada?
+- Semantic segmentation: kelas apa pada setiap piksel?
+- Instance segmentation: piksel mana milik setiap objek individual?
+
+---
+
+# Slide 38 - Dataset Scene, Street, dan Autonomous Vision
+
+| Dataset | Fokus | Catatan |
+|---|---|---|
+| Cityscapes | Street scene perkotaan | Semantic/instance segmentation dan disparity |
+| KITTI | Kendaraan dan jalan | Stereo, optical flow, detection, tracking |
+| BDD100K | Video berkendara beragam | Detection, lane, segmentation, tracking |
+| nuScenes | Multi-sensor autonomous driving | Kamera, lidar, radar, 3D detection/tracking |
+| Waymo Open Dataset | Sensor kendaraan skala besar | Perception dan motion research |
+
+## Risiko Evaluasi
+
+- kondisi kota dan cuaca tidak seimbang;
+- frame berdekatan dapat bocor antarsplit;
+- model dapat gagal ketika berpindah negara, sensor, atau musim.
+
+---
+
+# Slide 39 - Dataset Medis dan Biomedical Vision
+
+| Dataset | Modalitas atau Task | Catatan Penting |
+|---|---|---|
+| ISIC Archive | Dermoscopy dan lesi kulit | Classification/segmentation; distribusi populasi perlu diaudit |
+| CheXpert | Chest radiograph | Multi-label findings dan label uncertainty |
+| MIMIC-CXR | Chest radiograph + report | Memerlukan credentialing dan kepatuhan penggunaan |
+| BraTS | MRI tumor otak | Segmentasi tumor multisequence |
+| CAMELYON | Histopathology | Deteksi metastasis pada whole-slide image |
+
+## Prinsip Split
+
+Gunakan **patient-wise split**, bukan random image split, agar citra pasien yang sama tidak masuk ke train dan test.
+
+## Klaim
+
+Kinerja benchmark bukan pengganti validasi klinis.
+
+---
+
+# Slide 40 - Dataset Remote Sensing dan Earth Observation
+
+| Dataset | Sumber atau Anotasi | Penggunaan |
+|---|---|---|
+| EuroSAT | Sentinel-2, 10 kelas | Land-use/land-cover classification |
+| BigEarthNet | Patch Sentinel multispektral | Multi-label land-cover representation |
+| SpaceNet | Citra satelit + anotasi geospasial | Bangunan, jalan, dan mapping |
+| xView | Citra resolusi tinggi + bounding box | Deteksi objek skala kecil |
+| LoveDA | Urban dan rural scenes | Domain adaptation dan segmentation |
+
+## Risiko Khusus
+
+- spatial leakage antartile berdekatan;
+- perbedaan sensor dan resolusi;
+- perubahan musim dan waktu;
+- ketidakseimbangan wilayah geografis.
+
+---
+
+# Slide 41 - Dataset Manusia, Video, Dokumen, dan Multimodal
+
+## Wajah dan Aktivitas Manusia
+
+- LFW dan CelebA: face verification, attributes, dan representation.
+- COCO Keypoints dan MPII: human pose estimation.
+- Market-1501: person re-identification.
+
+## Video
+
+- UCF101 dan HMDB51: action recognition skala pendidikan.
+- Kinetics: pretraining dan benchmark action recognition.
+- Something-Something: interaksi objek dan pemahaman temporal.
+
+## Dokumen
+
+- RVL-CDIP: document image classification.
+- DocVQA: visual question answering pada dokumen.
+
+## Multimodal
+
+- Conceptual Captions, LAION, dan DataComp: image-text representation.
+
+## Wajib Dipertimbangkan
+
+Privasi, consent, bias demografis, hak cipta, lisensi, dan konten berbahaya.
+
+---
+
+# Slide 42 - Memilih Dataset dari Research Question
+
+## Mulai dari Pertanyaan, Bukan Popularitas
+
+| Research Question | Kebutuhan Dataset |
+|---|---|
+| Apakah model mengenali kelas? | Image-level label |
+| Di mana objek berada? | Bounding box atau mask |
+| Bagaimana model menghadapi domain shift? | Beberapa domain/sensor/lokasi |
+| Bagaimana kinerja pada data terbatas? | Kurva terhadap ukuran label |
+| Apakah model robust terhadap corruption? | Clean + corruption protocol |
+| Apakah model adil lintas kelompok? | Metadata kelompok yang sah dan etis |
+| Apakah representasi dapat ditransfer? | Pretraining dan downstream dataset |
+
+## Prinsip
+
+Dataset harus memungkinkan research question dijawab secara valid.
+
+---
+
+# Slide 43 - Audit Dataset Sebelum Training
+
+## Audit Minimum
+
+- jumlah sampel dan distribusi kelas;
+- resolusi, channel, dan format;
+- sampel visual per kelas;
+- missing atau corrupted files;
+- duplikasi dan near-duplicate;
+- statistik intensitas dan warna;
+- kualitas label;
+- metadata sumber;
+- lisensi dan batas penggunaan;
+- hubungan antarunit data.
+
+## Hubungan dengan Praktikum 01
+
+Audit data harus dilakukan sebelum mencoba arsitektur yang lebih kompleks.
+
+---
+
+# Slide 44 - Data Leakage Membuat Hasil Tampak Lebih Baik
+
+## Bentuk Leakage
+
+- subjek yang sama berada pada train dan test;
+- frame video berdekatan tersebar antarsplit;
+- tile citra satelit bertetangga masuk ke split berbeda;
+- augmentasi atau turunan citra masuk ke test;
+- normalisasi dihitung menggunakan seluruh data;
+- test set dipakai berulang untuk memilih model.
+
+## Split yang Sesuai
+
+| Domain | Split yang Disarankan |
+|---|---|
+| Medis | Patient-wise |
+| Video | Video/subject-wise |
+| Satelit | Geographic/region-wise |
+| Temporal | Time-based |
+| Multi-center | Site/hospital-wise |
+
+---
+
+# Slide 45 - Benchmark Dapat Mendorong Kesimpulan Keliru
+
+## Masalah Umum
+
+- mengejar perbedaan akurasi sangat kecil;
+- test set menjadi target optimasi komunitas;
+- dataset tidak mewakili kondisi deployment;
+- label tidak menangkap seluruh fenomena;
+- model memanfaatkan shortcut atau background;
+- biaya komputasi dan pretraining tidak diperhitungkan.
+
+## Pertanyaan Kritis
+
+- Apakah baseline cukup kuat?
+- Apakah perbandingan menggunakan data dan pretraining setara?
+- Apakah hasil stabil pada beberapa seed?
+- Apakah ada external validation atau distribution shift?
+- Apakah klaim dibatasi oleh karakteristik dataset?
+
+---
+
+# Slide 46 - Praktikum 02: Dari Mekanisme ke Eksperimen
+
+## Bagian A — Fondasi CNN
+
+- citra sebagai tensor;
+- convolution manual;
+- stride, padding, pooling, dan receptive field;
+- SimpleCNN;
+- residual block;
+- feature-map visualization.
+
+## Bagian B — Fondasi Transformer
+
+- token dan embedding;
+- Q, K, dan V;
+- attention matrix;
+- multi-head attention;
+- positional encoding;
+- patch tokenization;
+- Tiny Image Transformer;
+- attention visualization.
+
+## Dataset
+
+CIFAR-10 digunakan agar kedua model dapat dibangun dan dilatih dari nol dalam skala praktikum.
+
+---
+
+# Slide 47 - Protokol Eksperimen Praktikum 02
+
+## Variabel yang Dikontrol
+
+- indeks train, validation, dan test;
+- augmentasi;
+- jumlah epoch;
+- optimizer dan learning rate;
+- batch size;
+- random seed;
+- perangkat evaluasi.
+
+## Model
+
+- SimpleCNN dari nol;
+- Tiny Image Transformer dari nol.
+
+## Catatan Fairness
+
+Konfigurasi yang sama memberikan kontrol awal, tetapi belum menjamin hyperparameter optimal atau jumlah parameter setara.
+
+---
+
+# Slide 48 - Apa yang Harus Diukur?
+
+## Kinerja Prediksi
+
+- accuracy;
+- macro-F1;
+- classification report;
+- confusion matrix.
+
+## Proses Belajar
+
+- training loss;
+- validation loss;
+- training-validation gap;
+- stabilitas antar-seed.
+
+## Efisiensi
+
+- jumlah parameter;
+- waktu training;
+- latensi;
+- throughput.
+
+## Analisis Kualitatif
+
+- feature map;
+- attention map;
+- contoh salah klasifikasi.
+
+---
+
+# Slide 49 - Membaca Hasil Secara Hati-Hati
+
+## Kesimpulan yang Tidak Cukup
+
+> CNN lebih baik karena accuracy-nya lebih tinggi.
+
+## Kesimpulan yang Lebih Tepat
+
+> Pada CIFAR-10, training dari nol, dan konfigurasi yang diuji, SimpleCNN mencapai kinerja lebih tinggi dalam budget epoch tertentu. Hasil ini konsisten dengan manfaat bias lokal pada data terbatas, tetapi belum membuktikan CNN selalu unggul karena parameter dan hyperparameter kedua model belum sepenuhnya disejajarkan.
+
+## Prinsip
+
+Sebutkan kondisi, ukuran efek, variasi, keterbatasan, dan alternatif penjelasan.
+
+---
+
+# Slide 50 - Dari Failure Case ke Eksperimen Berikutnya
+
+```text
+Observasi
+→ Dugaan penyebab
+→ Hipotesis
+→ Variabel yang dikontrol
+→ Eksperimen
+→ Evidence
+→ Klaim terbatas
+```
+
+## Contoh
+
+- Observasi: model sering tertukar antara cat dan dog.
+- Dugaan: resolusi rendah menghilangkan detail bentuk.
+- Eksperimen: bandingkan resolusi dan ukuran data.
+- Evidence: perubahan per-class recall dan confusion.
+- Klaim: dibatasi pada dataset dan kondisi yang diuji.
+
+---
+
+# Slide 51 - Tugas Pertemuan 02
+
+## Tugas Praktikum
+
+- Menjalankan SimpleCNN dan Tiny Image Transformer.
+- Menjelaskan bentuk tensor pada setiap tahap.
+- Membandingkan kurva, accuracy, macro-F1, parameter, dan waktu.
+- Menganalisis feature map dan attention map.
+- Menemukan minimal lima failure cases.
+- Melakukan dua eksperimen pengembangan.
+
+## Tugas Dataset
+
+Pilih satu dataset yang relevan dengan minat disertasi dan tuliskan:
+
+- task dan jenis anotasi;
+- unit data dan strategi split;
+- lisensi serta akses;
+- bias dan risiko leakage;
+- baseline yang layak;
+- keterbatasan klaim generalisasi.
+
+---
+
+# Slide 52 - Target Keluaran
+
+Mahasiswa menghasilkan:
+
+1. notebook Praktikum 02 yang dapat dijalankan ulang;
+2. tabel perbandingan CNN dan Transformer;
+3. kurva pembelajaran dan confusion matrix;
+4. feature map dan attention map;
+5. error analysis;
+6. research log seluruh eksperimen;
+7. audit singkat satu dataset target;
+8. dua pertanyaan lanjutan menuju arsitektur modern.
+
+## Indikator Keberhasilan
+
+Mahasiswa dapat menjelaskan **mengapa** suatu hasil terjadi dan **batas bukti** yang dimiliki.
+
+---
+
+# Slide 53 - Persiapan Menuju Pertemuan 03
+
+## Setelah Pertemuan 02
+
+Mahasiswa telah memahami:
+
+- convolution dan residual connection;
+- feature map dan receptive field;
+- token, Q/K/V, dan self-attention;
+- multi-head attention dan positional encoding;
+- patch embedding;
+- training model dari nol;
+- peran karakteristik dataset.
+
+## Pertemuan 03 Akan Melanjutkan
+
+- ResNet, EfficientNet, dan CNN modern;
+- DeiT, ViT, dan Swin Transformer;
+- pretrained model dan transfer learning;
+- kebutuhan data dan inductive bias;
+- parameter, FLOPs, latency, dan robustness;
+- protokol komparasi arsitektur modern.
+
+---
+
+# Slide 54 - Rangkuman
+
+- CNN mempelajari kernel dan membangun representasi lokal secara hierarkis.
+- Stride, padding, pooling, dan receptive field mengatur aliran informasi spasial.
+- Residual connection membantu optimasi jaringan dalam.
+- Transformer memproses token melalui Q, K, V, dan self-attention.
+- Multi-head attention memungkinkan beberapa pola hubungan dipelajari paralel.
+- Positional encoding memberi informasi posisi yang tidak tersedia secara bawaan.
+- Patch tokenization menghubungkan citra dengan Transformer.
+- Dataset menentukan task, bias, benchmark, dan batas generalisasi.
+- Audit dan split yang benar sama pentingnya dengan pemilihan arsitektur.
+
+---
+
+# Slide 55 - Referensi Kunci
+
+## Arsitektur dan Representasi
+
+- LeCun et al. (1998), *Gradient-Based Learning Applied to Document Recognition*.
+- Krizhevsky et al. (2012), *ImageNet Classification with Deep Convolutional Neural Networks*.
+- He et al. (2016), *Deep Residual Learning for Image Recognition*.
+- Vaswani et al. (2017), *Attention Is All You Need*.
+- Dosovitskiy et al. (2021), *An Image Is Worth 16×16 Words*.
+
+## Dataset dan Benchmark
+
+- Krizhevsky (2009), CIFAR-10 dan CIFAR-100.
+- Deng et al. (2009), ImageNet.
+- Everingham et al., PASCAL VOC.
+- Lin et al. (2014), Microsoft COCO.
+- Cordts et al. (2016), Cityscapes.
+- Timofte et al. (2017), DIV2K.
+- Abdelhamed et al. (2018), Smartphone Image Denoising Dataset.
+- Nah et al. (2017), GoPro dynamic scene deblurring dataset.
+- Ponomarenko et al. (2015), TID2013.
+- Dokumentasi resmi dataset yang digunakan.
+
+---
+
+# Slide 56 - Penutup
+
+## Pesan Utama
+
+> Sebelum membandingkan arsitektur modern, kita perlu memahami bagaimana representasi dibangun dan bagaimana dataset membatasi makna hasil eksperimen.
+
+## Langkah Berikutnya
+
+Gunakan fondasi ini untuk menjawab pada Pertemuan 03:
+
+> Dalam kondisi data, komputasi, dan tujuan tertentu, kapan CNN atau Vision Transformer menjadi pilihan yang lebih tepat?
