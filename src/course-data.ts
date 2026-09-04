@@ -7,7 +7,7 @@ export const courseData = {
   "description": "Mata kuliah Topik Dalam Pengolahan Citra Digital pada jenjang Doktor (S3) membahas perkembangan mutakhir dalam Digital Image Processing dan Computer Vision, dengan penekanan pada metode yang sedang berkembang seperti…",
   "heroTitle": "TD Pengolahan Citra Digital",
   "sourceOfferingId": 12,
-  "generatedAt": "2026-09-04T10:09:11.117Z",
+  "generatedAt": "2026-09-04T10:58:42.715Z",
   "rps": {
     "title": "RPS TD Pengolahan Citra Digital",
     "path": "rps/rps.md"
@@ -630,7 +630,9 @@ export const courseData = {
       "subtitle": "Fokus Pembelajaran: menganalisis perbedaan inductive bias CNN dan Vision Transformer serta implikasinya terhadap data, komputasi, dan generalisasi. Fokus Penelitian: memilih…",
       "slidePath": "slide/pert03.md",
       "narrationPath": "slide/narasi/pert03.md",
-      "practicumPaths": [],
+      "practicumPaths": [
+        "praktikum/modul-praktikum-pertemuan-03-cnn-attention-vit-2.md"
+      ],
       "images": [
         {
           "slideNumber": 0,
