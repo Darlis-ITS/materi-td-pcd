@@ -1,6 +1,6 @@
 # Narasi TD Pengolahan Citra Digital - Pertemuan 02
 
-## Fondasi Representasi Visual: CNN, Transformer, dan Dataset Benchmark
+## Critical Paper Reading dan Identifikasi Research Gap
 
 Sumber: markdown/pert02-tambahan.md
 

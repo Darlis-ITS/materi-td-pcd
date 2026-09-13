@@ -7,7 +7,7 @@ export const courseData = {
   "description": "Mata kuliah Topik Dalam Pengolahan Citra Digital pada jenjang Doktor (S3) membahas perkembangan mutakhir dalam Digital Image Processing dan Computer Vision, dengan penekanan pada metode yang sedang berkembang seperti…",
   "heroTitle": "TD Pengolahan Citra Digital",
   "sourceOfferingId": 12,
-  "generatedAt": "2026-09-04T10:58:42.715Z",
+  "generatedAt": "2026-09-13T13:35:30.720Z",
   "rps": {
     "title": "RPS TD Pengolahan Citra Digital",
     "path": "rps/rps.md"
@@ -382,8 +382,8 @@ export const courseData = {
     {
       "id": "pert02",
       "number": 2,
-      "title": "Fondasi Representasi Visual: CNN, Transformer, dan Dataset Benchmark",
-      "subtitle": "Critical Paper Reading dan Identifikasi Research Gap",
+      "title": "Critical Paper Reading dan Identifikasi Research Gap",
+      "subtitle": "Fokus Pembelajaran: membaca paper secara sistematis berdasarkan problem, novelty, metode, eksperimen, klaim, dan keterbatasan. Fokus Penelitian: membedakan gap yang benar-benar…",
       "slidePath": "slide/pert02.md",
       "narrationPath": "slide/narasi/pert02.md",
       "practicumPaths": [
@@ -626,6 +626,142 @@ export const courseData = {
     {
       "id": "pert03",
       "number": 3,
+      "title": "Torchvision dan Timm - Ekosistem PyTorch untuk CNN, Vision Transformer dan Hybrid",
+      "subtitle": "Representasi Visual Modern: CNN, Attention, dan Vision Transformer",
+      "slidePath": "slide/pert03.md",
+      "narrationPath": "slide/narasi/pert03.md",
+      "practicumPaths": [
+        "praktikum/pert03-perbandingan-model.md"
+      ],
+      "images": [
+        {
+          "slideNumber": 0,
+          "path": "slide/slide-image/pert03/slide-000-v001.webp"
+        },
+        {
+          "slideNumber": 1,
+          "path": "slide/slide-image/pert03/slide-001-v001.webp"
+        },
+        {
+          "slideNumber": 2,
+          "path": "slide/slide-image/pert03/slide-002-v001.webp"
+        },
+        {
+          "slideNumber": 3,
+          "path": "slide/slide-image/pert03/slide-003-v001.webp"
+        },
+        {
+          "slideNumber": 4,
+          "path": "slide/slide-image/pert03/slide-004-v001.webp"
+        },
+        {
+          "slideNumber": 5,
+          "path": "slide/slide-image/pert03/slide-005-v001.webp"
+        },
+        {
+          "slideNumber": 6,
+          "path": "slide/slide-image/pert03/slide-006-v001.webp"
+        },
+        {
+          "slideNumber": 7,
+          "path": "slide/slide-image/pert03/slide-007-v001.webp"
+        },
+        {
+          "slideNumber": 8,
+          "path": "slide/slide-image/pert03/slide-008-v001.webp"
+        },
+        {
+          "slideNumber": 9,
+          "path": "slide/slide-image/pert03/slide-009-v001.webp"
+        },
+        {
+          "slideNumber": 10,
+          "path": "slide/slide-image/pert03/slide-010-v001.webp"
+        },
+        {
+          "slideNumber": 11,
+          "path": "slide/slide-image/pert03/slide-011-v001.webp"
+        },
+        {
+          "slideNumber": 12,
+          "path": "slide/slide-image/pert03/slide-012-v001.webp"
+        },
+        {
+          "slideNumber": 13,
+          "path": "slide/slide-image/pert03/slide-013-v001.webp"
+        },
+        {
+          "slideNumber": 14,
+          "path": "slide/slide-image/pert03/slide-014-v001.webp"
+        },
+        {
+          "slideNumber": 15,
+          "path": "slide/slide-image/pert03/slide-015-v001.webp"
+        },
+        {
+          "slideNumber": 16,
+          "path": "slide/slide-image/pert03/slide-016-v001.webp"
+        },
+        {
+          "slideNumber": 17,
+          "path": "slide/slide-image/pert03/slide-017-v001.webp"
+        },
+        {
+          "slideNumber": 18,
+          "path": "slide/slide-image/pert03/slide-018-v001.webp"
+        },
+        {
+          "slideNumber": 19,
+          "path": "slide/slide-image/pert03/slide-019-v001.webp"
+        },
+        {
+          "slideNumber": 20,
+          "path": "slide/slide-image/pert03/slide-020-v001.webp"
+        },
+        {
+          "slideNumber": 21,
+          "path": "slide/slide-image/pert03/slide-021-v001.webp"
+        },
+        {
+          "slideNumber": 22,
+          "path": "slide/slide-image/pert03/slide-022-v001.webp"
+        },
+        {
+          "slideNumber": 23,
+          "path": "slide/slide-image/pert03/slide-023-v001.webp"
+        },
+        {
+          "slideNumber": 24,
+          "path": "slide/slide-image/pert03/slide-024-v001.webp"
+        },
+        {
+          "slideNumber": 25,
+          "path": "slide/slide-image/pert03/slide-025-v001.webp"
+        },
+        {
+          "slideNumber": 26,
+          "path": "slide/slide-image/pert03/slide-026-v001.webp"
+        },
+        {
+          "slideNumber": 27,
+          "path": "slide/slide-image/pert03/slide-027-v001.webp"
+        },
+        {
+          "slideNumber": 28,
+          "path": "slide/slide-image/pert03/slide-028-v001.webp"
+        },
+        {
+          "slideNumber": 29,
+          "path": "slide/slide-image/pert03/slide-029-v001.webp"
+        }
+      ],
+      "slideCount": 30,
+      "imageCount": 30,
+      "narrationCount": 29
+    },
+    {
+      "id": "pert03",
+      "number": 3,
       "title": "Representasi Visual Modern: CNN, Attention, dan Vision Transformer",
       "subtitle": "Fokus Pembelajaran: menganalisis perbedaan inductive bias CNN dan Vision Transformer serta implikasinya terhadap data, komputasi, dan generalisasi. Fokus Penelitian: memilih…",
       "slidePath": "slide/pert03.md",
@@ -818,7 +954,9 @@ export const courseData = {
       "subtitle": "Fokus Pembelajaran: memahami bagaimana representasi visual dipelajari tanpa label atau dengan label terbatas. Fokus Penelitian: mengevaluasi transferability representasi DINO dan…",
       "slidePath": "slide/pert04.md",
       "narrationPath": "slide/narasi/pert04.md",
-      "practicumPaths": [],
+      "practicumPaths": [
+        "praktikum/modul-praktikum-pertemuan-04-ssl-dan-foundation-vision-models.md"
+      ],
       "images": [
         {
           "slideNumber": 0,
@@ -1000,7 +1138,9 @@ export const courseData = {
       "subtitle": "Fokus Pembelajaran: memahami alignment antara representasi citra dan teks serta mekanisme zero-shot recognition. Fokus Penelitian: menguji kemampuan generalisasi multimodal,…",
       "slidePath": "slide/pert05.md",
       "narrationPath": "slide/narasi/pert05.md",
-      "practicumPaths": [],
+      "practicumPaths": [
+        "praktikum/modul-praktikum-pertemuan-05-vision-language-models-dan-multimodal-representation.md"
+      ],
       "images": [
         {
           "slideNumber": 0,
